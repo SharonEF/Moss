@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-Wall -Wextra
+CFLAGS=-Wall -Wuninitialized
 
 OBJS=server.o net.o file.o mime.o cache.o hashtable.o llist.o
 

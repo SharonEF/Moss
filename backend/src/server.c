@@ -35,7 +35,7 @@
 #include "cache.h"
 #include <stdlib.h>
 
-#define PORT "8080"  // the port users will be connecting to
+#define PORT "80"  // the port users will be connecting to
 
 #define SERVER_FILES "./serverfiles"
 #define SERVER_ROOT "./serverroot"
@@ -132,12 +132,16 @@ void resp_file(int fd, struct cache *cache, char *request_path) {
  * @param request entire requested message
  */
 void handle_get_request(int fd, struct cache *cache, char* path, char* request) {
+    printf("GET: %s", path);
 
-    // if (path contains profile/...) {
-    //     load that profile
-    // } else {
+    char prof[100] = {0};
+    if (sscanf(path, "/profile/%s", prof) == 1) {
+        // serve profile
+        resp_file(fd, cache, "/profile.html");
+    } else {
+        // serve homepage
         resp_file(fd, cache, "/index.html");
-    // }
+    }
 }
 
 /**
@@ -149,6 +153,7 @@ void handle_get_request(int fd, struct cache *cache, char* path, char* request) 
  * @param request entire requested message
  */
 void handle_post_request(int fd, struct cache *cache, char* path, char* request) {
+    printf("POST: %s", request);
     resp_404(fd);
 }
 
@@ -170,10 +175,9 @@ void handle_http_request(int fd, struct cache *cache) {
     char type[10];
     char path[107];
 
+
     // Read the first two components of the first line of the request
     sscanf(request, "%s %s", type, path);
-
-    printf("Type: %s, Path: %s\n", type, path);
  
     if (strcmp(type, "GET") == 0) {
         // If GET, handle the get endpoints
