@@ -11,3 +11,5 @@ This challenge is about innovating ways to implement applications in a more ener
 Energy-efficient solutions can include things like avoiding unnecessary processing, optimizing capacity use, 
 using energy-efficient programming languages, using energy-efficient file formats, the application can have an eco-mode, 
 screen color choices can influence energy consumption and so on.
+
+Contributed by suggesting and giving Ideas about html and css.
